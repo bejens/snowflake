@@ -16,7 +16,7 @@ impl SnowflakeRust {
         let ip = get_ip().unwrap();
         let ip_split: Vec<&str> = ip.split(".").collect();
         let ip_low = ip_split[2].to_string().parse::<i64>().unwrap() << 8 | ip_split[3].to_string().parse::<i64>().unwrap();
-        Snowflake {
+        SnowflakeRust {
             epoch: 1575129600000,
             worker_id: ip_low,
             sequence: 0,
@@ -26,7 +26,7 @@ impl SnowflakeRust {
     }
 
     pub fn new(worker_id: i64) -> SnowflakeRust {
-        Snowflake {
+        SnowflakeRust {
             epoch: 1575129600000,
             worker_id,
             sequence: 0,
