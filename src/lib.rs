@@ -3,7 +3,7 @@ use std::sync::{Arc, Mutex};
 use std::{thread, time};
 use chrono::Utc;
 
-pub struct SnowflakeRust {
+pub struct Snowflake {
     epoch: i64,
     worker_id: i64,
     sequence: i64,
@@ -11,12 +11,12 @@ pub struct SnowflakeRust {
     sequence_mask: i64
 }
 
-impl SnowflakeRust {
-    pub fn kubernetes() -> SnowflakeRust {
+impl Snowflake {
+    pub fn kubernetes() -> Snowflake {
         let ip = get_ip().unwrap();
         let ip_split: Vec<&str> = ip.split(".").collect();
         let ip_low = ip_split[2].to_string().parse::<i64>().unwrap() << 8 | ip_split[3].to_string().parse::<i64>().unwrap();
-        SnowflakeRust {
+        Snowflake {
             epoch: 1575129600000,
             worker_id: ip_low,
             sequence: 0,
@@ -25,8 +25,8 @@ impl SnowflakeRust {
         }
     }
 
-    pub fn new(worker_id: i64) -> SnowflakeRust {
-        SnowflakeRust {
+    pub fn new(worker_id: i64) -> Snowflake {
+        Snowflake {
             epoch: 1575129600000,
             worker_id,
             sequence: 0,
@@ -74,8 +74,8 @@ fn get_ip() -> Option<String> {
         Err(_) => return None,
     };
 
-    match socket.local_addr() {
-        Ok(addr) => return Some(addr.ip().to_string()),
-        Err(_) => return None,
+    return match socket.local_addr() {
+        Ok(addr) => Some(addr.ip().to_string()),
+        Err(_) => None,
     };
 }
