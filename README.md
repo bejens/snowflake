@@ -13,7 +13,7 @@ Add this to your `Cargo.toml`:
 ```toml
 
 [dependencies]
-snowflake-rust = "0.5.0"
+snowflake-rust = "0.5.1"
 ```
 and this to your crate root:
 
@@ -32,7 +32,7 @@ use snowflake_rust::Snowflake;
 fn main() {
     let mut s = Snowflake::kubernetes();
     let id = s.generate().unwrap();
-    println!("{}", id)
+    println!("{:?}", id)
 }
 
 ```
