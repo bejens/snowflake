@@ -1,5 +1,5 @@
 [package]
-name = "snowflake"
+name = "snowflake-rust"
 version = "0.1.0"
 authors = ["wangchen <18511635784@163.com>"]
 description = "'twitter' snowflakes."
