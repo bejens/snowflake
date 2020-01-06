@@ -1,6 +1,7 @@
+use std::{thread, time};
 use std::net::UdpSocket;
 use std::sync::{Arc, Mutex};
-use std::{thread, time};
+
 use chrono::Utc;
 
 pub struct Snowflake {
@@ -52,9 +53,6 @@ impl Snowflake {
         }
 
         *last_timestamp = timestamp;
-        println!("{}",timestamp);
-        println!("{}",self.worker_id);
-        println!("{}",self.sequence);
         Option::from((timestamp << 28) | (self.worker_id << 12) | self.sequence)
     }
 
