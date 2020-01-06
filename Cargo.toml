@@ -1,0 +1,13 @@
+[package]
+name = "snowflake"
+version = "0.1.0"
+authors = ["wangchen <18511635784@163.com>"]
+description = "'twitter' snowflakes."
+repository = "https://github.com/iCrawl/rustflake"
+readme = "README.md"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = "0.4.10"
