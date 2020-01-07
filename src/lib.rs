@@ -4,7 +4,6 @@ use std::sync::{Arc, Mutex};
 
 use chrono::Utc;
 
-#[derive(Clone, Copy)]
 pub struct Snowflake {
     epoch: i64,
     worker_id: i64,
