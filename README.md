@@ -1,4 +1,4 @@
-# rustflake
+# snowflake-rust
 
 Kubernetes "twitter" snowflakes.this is not release version,please do not use in production.
 
@@ -13,7 +13,7 @@ Add this to your `Cargo.toml`:
 ```toml
 
 [dependencies]
-snowflake-rust = "0.5.3"
+snowflake-rust = "0.5.4"
 ```
 and this to your crate root:
 
