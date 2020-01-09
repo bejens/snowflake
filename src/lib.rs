@@ -1,14 +1,14 @@
 use std::{thread, time};
 use std::net::UdpSocket;
+use std::sync::{Arc, Mutex};
 
 use chrono::Utc;
 
-#[derive(Clone)]
 pub struct Snowflake {
     epoch: i64,
     worker_id: i64,
     sequence: i64,
-    time: i64,
+    time: Arc<Mutex<i64>>,
     sequence_mask: i64
 }
 
@@ -21,7 +21,7 @@ impl Snowflake {
             epoch: 1575129600000,
             worker_id: ip_low,
             sequence: 0,
-            time: 0,
+            time: Arc::new(Mutex::new(0)),
             sequence_mask: -1 ^ -1 << 12,
         }
     }
@@ -31,27 +31,28 @@ impl Snowflake {
             epoch: 1575129600000,
             worker_id,
             sequence: 0,
-            time: 0,
+            time: Arc::new(Mutex::new(0)),
             sequence_mask: -1 ^ (-1 << 12),
         }
     }
 
     pub fn generate(&mut self) -> Option<i64> {
+        let mut last_timestamp = self.time.lock().unwrap();
         let mut timestamp = self.get_time();
-        if timestamp < self.time {
-            if self.time - timestamp > 150 {
+        if timestamp < *last_timestamp {
+            if *last_timestamp - timestamp > 150 {
                 return None
             } else {
-                thread::sleep(time::Duration::from_millis((self.time - timestamp + 1) as u64));
+                thread::sleep(time::Duration::from_millis((*last_timestamp - timestamp + 1) as u64));
                 timestamp = self.get_time();
             }
-        } else if timestamp == self.get_time() {
+        } else if timestamp == *last_timestamp {
             self.sequence = (self.sequence + 1) & self.sequence_mask
         } else {
             self.sequence = 0
         }
 
-        self.time = timestamp;
+        *last_timestamp = timestamp;
         Option::from((timestamp << 28) | (self.worker_id << 12) | self.sequence)
     }
 

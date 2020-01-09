@@ -13,7 +13,7 @@ Add this to your `Cargo.toml`:
 ```toml
 
 [dependencies]
-snowflake-rust = "0.5.2"
+snowflake-rust = "0.5.3"
 ```
 and this to your crate root:
 
