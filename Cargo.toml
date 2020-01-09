@@ -1,6 +1,6 @@
 [package]
 name = "snowflake-rust"
-version = "0.5.4"
+version = "0.5.5"
 authors = ["wangchen <18511635784@163.com>"]
 description = "'twitter' snowflakes."
 repository = "https://github.com/bejens/snowflake.git"
