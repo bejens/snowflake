@@ -3,7 +3,7 @@
 Kubernetes "twitter" snowflakes.this is not release version,please do not use in production.
 
 By default the original Twitter snowflake format defines:
-- 36 bits are used to store a custom epoch with 10 millisecond precision
+- 35 bits are used to store a custom epoch with 10 millisecond precision
 - 16 bits are used to store low 16 bit from ip address
 - 12 bits are used to store a sequence number
 
